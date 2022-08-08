@@ -47,3 +47,44 @@ func UserRegister(register request.UserRep) (response.Response, error) {
 		Msg:    "用户名重复，注册失败！",
 	}, err
 }
+
+func UserLogin(login request.UserRep) (response.Response, error) {
+	var user model.User
+	err := mysql.MysqlDB.Where(&model.User{UserName: login.UserName}).First(&user).Error
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return response.Response{
+				Status: http.StatusBadRequest,
+				Msg:    "该用户不存在，请先注册！",
+				Error:  err.Error(),
+			}, err
+		}
+		// 不是用户不存在却还是出错，其他不可抗拒的因素
+		return response.Response{
+			Status: http.StatusInternalServerError,
+			Msg:    "查询数据库出现错误！",
+			Error:  err.Error(),
+		}, err
+	}
+	// 用户从数据库中找到了，检验密码
+	ok, err := user.CheckPassword(login.Password)
+	if err != nil {
+		return response.Response{
+			Status: http.StatusInternalServerError,
+			Msg:    "登录失败！",
+			Error:  err.Error(),
+		}, err
+	}
+	if !ok {
+		return response.Response{
+			Status: http.StatusForbidden,
+			Msg:    "密码错误，登录失败！",
+		}, err
+	}
+	// 登录成功，这里就省略签发token了
+	return response.Response{
+		Status: http.StatusOK,
+		Msg:    "登录成功！",
+		Data:   map[string]string{"token": "这里就模拟一个token"},
+	}, nil
+}

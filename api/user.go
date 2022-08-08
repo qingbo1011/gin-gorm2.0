@@ -22,12 +22,21 @@ func UserRegister(c *gin.Context) {
 		return
 	}
 	res, err := service.UserRegister(userRegister)
-	if err != nil {
-		c.JSON(res.Status, res)
-	}
 	c.JSON(res.Status, res)
 }
 
 func Login(c *gin.Context) {
-
+	var userLogin request.UserRep
+	err := c.ShouldBind(&userLogin)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status": http.StatusBadRequest,
+			"msg":    "json数据解析失败！",
+			"error":  err.Error(),
+		})
+		logging.Info(err)
+		return
+	}
+	res, err := service.UserLogin(userLogin)
+	c.JSON(res.Status, res)
 }
