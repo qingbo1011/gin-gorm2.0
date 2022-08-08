@@ -57,7 +57,7 @@ func loadMysql(file *ini.File) {
 	MysqlDontSupportRenameIndex = section.Key("MysqlDontSupportRenameIndex").MustBool(true)
 	MysqlDontSupportRenameColumn = section.Key("MysqlDontSupportRenameColumn").MustBool(true)
 	MysqlSkipInitializeWithVersion = section.Key("MysqlSkipInitializeWithVersion").MustBool(false)
-	MysqlSingularTable = section.Key("MysqlSkipInitializeWithVersion").MustBool(true)
+	MysqlSingularTable = section.Key("MysqlSingularTable").MustBool(true)
 	MysqlMaxIdleConns = section.Key("MysqlMaxIdleConns").MustInt(20)
 	MysqlMaxOpenConns = section.Key("MysqlMaxOpenConns").MustInt(100)
 	MysqlConnMaxLifetime = time.Duration(section.Key("MysqlConnMaxLifetime").MustInt(30)) * time.Second

@@ -46,9 +46,9 @@ func Init() {
 	if err != nil {
 		logging.Info(err)
 	}
-	sqlDB.SetMaxIdleConns(conf.MysqlMaxIdleConns)
-	sqlDB.SetMaxOpenConns(conf.MysqlMaxOpenConns)
-	sqlDB.SetConnMaxLifetime(conf.MysqlConnMaxLifetime)
+	sqlDB.SetMaxIdleConns(conf.MysqlMaxIdleConns)       // 设置空闲连接池中的最大连接数
+	sqlDB.SetMaxOpenConns(conf.MysqlMaxOpenConns)       // 设置数据库连接最大打开数
+	sqlDB.SetConnMaxLifetime(conf.MysqlConnMaxLifetime) // 设置可重用连接的最长时间
 
 	err = db.AutoMigrate(&model.User{}) // 自动迁移
 	if err != nil {

@@ -25,7 +25,7 @@ func UserRegister(c *gin.Context) {
 	if err != nil {
 		c.JSON(res.Status, res)
 	}
-	c.JSON(http.StatusCreated, res)
+	c.JSON(res.Status, res)
 }
 
 func Login(c *gin.Context) {

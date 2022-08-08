@@ -43,7 +43,7 @@ func UserRegister(register request.UserRep) (response.Response, error) {
 		}, err
 	}
 	return response.Response{
-		Status: http.StatusBadRequest,
+		Status: http.StatusForbidden,
 		Msg:    "用户名重复，注册失败！",
 	}, err
 }
