@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"gin-gorm2.0/conf"
+	"gin-gorm2.0/model"
 	logging "github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -49,7 +50,7 @@ func Init() {
 	sqlDB.SetMaxOpenConns(conf.MysqlMaxOpenConns)
 	sqlDB.SetConnMaxLifetime(conf.MysqlConnMaxLifetime)
 
-	err = db.AutoMigrate() // 自动迁移
+	err = db.AutoMigrate(&model.User{}) // 自动迁移
 	if err != nil {
 		logging.Info(err)
 	}

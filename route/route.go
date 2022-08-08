@@ -1,6 +1,7 @@
 package route
 
 import (
+	"gin-gorm2.0/api"
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,7 +10,8 @@ func NewRoute() *gin.Engine {
 	r := gin.Default()
 	user := r.Group("/user")
 	{
-		user.POST("/register")
+		user.POST("/register", api.UserRegister)
+		user.POST("/login", api.Login)
 	}
 	return r
 }
