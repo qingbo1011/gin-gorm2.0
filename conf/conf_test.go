@@ -1,7 +1,6 @@
 package conf
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -10,7 +9,10 @@ func init() {
 }
 
 func TestConf(t *testing.T) {
-	fmt.Println(HttpPort)
-	fmt.Println(MysqlHost)
-	fmt.Println(MysqlPort)
+	//fmt.Println(HttpPort)
+	//fmt.Println(MysqlHost)
+	//fmt.Println(MysqlPort)
+	//fmt.Println(MysqlLogMode)
+	//fmt.Println(MysqlDataBase)
+	//fmt.Println(MysqlSingularTable)
 }

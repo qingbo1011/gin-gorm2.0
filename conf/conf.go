@@ -10,16 +10,21 @@ import (
 var (
 	HttpPort string
 
-	MysqlHost            string
-	MysqlPort            string
-	MysqlUser            string
-	MysqlPassword        string
-	MysqlName            string
-	MysqlIsLog           bool
-	MysqlIsSingularTable bool
-	MysqlMaxIdleConns    int
-	MysqlMaxOpenConns    int
-	MysqlConnMaxLifetime time.Duration
+	MysqlHost                      string
+	MysqlPort                      string
+	MysqlUser                      string
+	MysqlPassword                  string
+	MysqlDataBase                  string
+	MysqlLogMode                   int
+	MysqlDefaultStringSize         uint
+	MysqlDisableDatetimePrecision  bool
+	MysqlDontSupportRenameIndex    bool
+	MysqlDontSupportRenameColumn   bool
+	MysqlSkipInitializeWithVersion bool
+	MysqlSingularTable             bool
+	MysqlMaxIdleConns              int
+	MysqlMaxOpenConns              int
+	MysqlConnMaxLifetime           time.Duration
 )
 
 func Init(path string) {
@@ -45,9 +50,14 @@ func loadMysql(file *ini.File) {
 	MysqlPort = section.Key("MysqlPort").String()
 	MysqlUser = section.Key("MysqlUser").String()
 	MysqlPassword = section.Key("MysqlPassword").String()
-	MysqlName = section.Key("MysqlName").String()
-	MysqlIsLog = section.Key("MysqlIsLog").MustBool(true)
-	MysqlIsSingularTable = section.Key("MysqlIsSingularTable").MustBool(true)
+	MysqlDataBase = section.Key("MysqlDataBase").String()
+	MysqlLogMode = section.Key("MysqlLogMode").MustInt(3)
+	MysqlDefaultStringSize = section.Key("MysqlDefaultStringSize").MustUint(256)
+	MysqlDisableDatetimePrecision = section.Key("MysqlDisableDatetimePrecision").MustBool(true)
+	MysqlDontSupportRenameIndex = section.Key("MysqlDontSupportRenameIndex").MustBool(true)
+	MysqlDontSupportRenameColumn = section.Key("MysqlDontSupportRenameColumn").MustBool(true)
+	MysqlSkipInitializeWithVersion = section.Key("MysqlSkipInitializeWithVersion").MustBool(false)
+	MysqlSingularTable = section.Key("MysqlSkipInitializeWithVersion").MustBool(true)
 	MysqlMaxIdleConns = section.Key("MysqlMaxIdleConns").MustInt(20)
 	MysqlMaxOpenConns = section.Key("MysqlMaxOpenConns").MustInt(100)
 	MysqlConnMaxLifetime = time.Duration(section.Key("MysqlConnMaxLifetime").MustInt(30)) * time.Second
