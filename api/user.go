@@ -23,13 +23,7 @@ func UserRegister(c *gin.Context) {
 	}
 	res, err := service.UserRegister(userRegister)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"status": http.StatusInternalServerError,
-			"msg":    "数据库内部错误！",
-			"error":  err.Error(),
-		})
-		logging.Info(err)
-		return
+		c.JSON(res.Status, res)
 	}
 	c.JSON(http.StatusCreated, res)
 }
