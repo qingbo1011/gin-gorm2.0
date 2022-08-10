@@ -15,6 +15,7 @@ var (
 	MysqlUser                      string
 	MysqlPassword                  string
 	MysqlDataBase                  string
+	MysqlCharset                   string
 	MysqlLogMode                   int
 	MysqlDefaultStringSize         uint
 	MysqlDisableDatetimePrecision  bool
@@ -51,6 +52,7 @@ func loadMysql(file *ini.File) {
 	MysqlUser = section.Key("MysqlUser").String()
 	MysqlPassword = section.Key("MysqlPassword").String()
 	MysqlDataBase = section.Key("MysqlDataBase").String()
+	MysqlCharset = section.Key("MysqlCharset").String()
 	MysqlLogMode = section.Key("MysqlLogMode").MustInt(3)
 	MysqlDefaultStringSize = section.Key("MysqlDefaultStringSize").MustUint(256)
 	MysqlDisableDatetimePrecision = section.Key("MysqlDisableDatetimePrecision").MustBool(true)
